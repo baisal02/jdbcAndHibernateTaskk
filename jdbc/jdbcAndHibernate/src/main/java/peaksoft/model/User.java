@@ -1,10 +1,19 @@
 package peaksoft.model;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Table
+import javax.persistence.*;
+@Entity
+@Setter
+@Getter
+@ToString
+@Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "user_gen")
+    @SequenceGenerator(name="user_gen",sequenceName = "user_seq")
     private Long id;
 
     @Column
@@ -16,13 +25,17 @@ public class User {
     @Column
     private Byte age;
 
-    public User() {
+    public User(long id, String name, String lastname, byte age) {
     }
 
     public User(String name, String lastName, Byte age) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    public User() {
+
     }
 
     public Long getId() {
